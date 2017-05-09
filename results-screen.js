@@ -12,6 +12,14 @@ class ResultsScreen {
     this.startOver = this.startOver.bind(this);
     this.Continue = this.Continue.bind(this);
     this.toMenu = this.toMenu.bind(this);
+    this.reset = this.reset.bind(this);
+    document.addEventListener('reset', this.rest);
+  }
+
+  reset() {
+    const startOver = document.querySelector('#results .continue');
+    startOver.removeEventListener('click', this.startOver);
+    startOver.removeEventListener('click', this.Continue);
   }
 
   show(numberCorrect, numberWrong) {
@@ -44,19 +52,22 @@ class ResultsScreen {
   toMenu() {
     const toMenu = document.querySelector('#results .to-menu');
     toMenu.removeEventListener('click', this.toMenu);
+    this.reset();
     document.dispatchEvent(new CustomEvent('toMenu'));
   }
 
   Continue() {
     const Continue = document.querySelector('#results .continue');
-    document.dispatchEvent(new CustomEvent('continue'));
     Continue.removeEventListener('click', this.Continue);
+    this.reset();
+    document.dispatchEvent(new CustomEvent('continue'));
   }
 
  startOver() {
    const startOver = document.querySelector('#results .continue');
-   document.dispatchEvent(new CustomEvent('doOver'));
    startOver.removeEventListener('click', this.startOver);
+   this.reset();
+   document.dispatchEvent(new CustomEvent('doOver'));
  }
 
   hide() {

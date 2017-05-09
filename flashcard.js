@@ -14,6 +14,7 @@ class Flashcard {
     this.flashcardElement = this._createFlashcardDOM(frontText, backText);
 
     this.word = frontText;
+    this.def = backText;
 
     this.originX = null;
     this.originY = null;

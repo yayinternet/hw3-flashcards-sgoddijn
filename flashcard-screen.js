@@ -1,11 +1,3 @@
-// TODO(you): Modify the class in whatever ways necessary to implement
-// the flashcard app behavior.
-//
-// You may need to do things such as:
-// - Changing the constructor parameters
-// - Rewriting some of the existing methods, such as changing code in `show()`
-// - Adding methods
-// - Adding additional fields
 
 class FlashcardScreen {
   constructor(containerElement) {
@@ -33,9 +25,11 @@ class FlashcardScreen {
 
   newCards() {
     const newFlashcards = [];
+    const flashcardContainer = document.querySelector('#flashcard-container');
     for (let i=0; i<this.flashcards.length; i++) {
       if (this.flashcards[i] !== undefined) {
-        newFlashcards.push(this.flashcards[i]);
+        const card = new Flashcard(flashcardContainer, this.flashcards[i].word, this.flashcards[i].def);
+        newFlashcards.push(card);
       }
     }
     this.flashcards = newFlashcards;
@@ -72,7 +66,10 @@ class FlashcardScreen {
   createDeck(event) {
     this.flashcards = [];
     const flashcardContainer = document.querySelector('#flashcard-container');
-    if (this.title === null) this.title = event.detail.title;
+    if (this.title === null) {
+      this.title = event.detail.title;
+      console.log(this.title);
+    }
     let index = null;
     for (let i = 0; i < FLASHCARD_DECKS.length; i++) {
       if (this.title.includes(FLASHCARD_DECKS[i].title)) {
@@ -85,6 +82,7 @@ class FlashcardScreen {
       const card = new Flashcard(flashcardContainer, key, deck.words[key]);
       this.flashcards.push(card);
     }
+    console.log(this.flashcards);
     this.chooseCard(0);
   }
 
